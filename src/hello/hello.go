@@ -5,7 +5,11 @@ import (
 	"net/http"
 	"os"
 	"reflect"
+	"time"
 )
+
+const monitoramentos = 3
+const delay = 5
 
 func main() {
 
@@ -62,6 +66,15 @@ func main() {
 	array := devolveEstadosDoSudeste()
 	fmt.Println(array)
 
+	exibeNomes()
+
+	for i := 0; i < monitoramentos; i++ { // quero rodar meu codigo 5x
+		for i, array := range array { // é como se fosse aquele for classico
+			fmt.Println("Estou passando na posição", i,
+				"do meu slice e essa posição tem o site", array)
+		}
+		time.Sleep(delay * time.Second)
+	}
 }
 
 func exibeIntroducao() {
@@ -106,4 +119,22 @@ func devolveEstadosDoSudeste() [4]string {
 func exibeNomes() { //SLICES
 	nomes := []string{"Rafael", "Jane", "Samuel", "Jay", "Neim"}
 	println(nomes)
+	println("qtd intes do slice", len(nomes))
+	println("capacidade", cap(nomes))
+
+	nomes = append(nomes, "teste") // add novo elemento
+	println("qtd intes do slice depois de estourar o valor", len(nomes))
+	println("capacidade é dobrada apos extourar", cap(nomes))
+
+}
+
+func testaSite(site string) { // func com parametro sem retorno
+
+	resp, _ := http.Get(site)
+
+	if resp.StatusCode == 200 {
+		fmt.Println("Site:", site, "foi carregado com sucesso!")
+	} else {
+		fmt.Println("Site:", site, "está com problemas. Status Code:", resp.StatusCode)
+	}
 }
