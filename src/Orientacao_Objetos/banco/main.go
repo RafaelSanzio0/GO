@@ -1,5 +1,10 @@
 package main
 
+import (
+	"Orientacao_Objetos/banco/contas"
+	"fmt"
+)
+
 func main() {
 
 	//podemos fazer desta maneira caso queira preencher alguns campos -- JEITO MAIS CORRETO
@@ -19,7 +24,27 @@ func main() {
 	//contaDaCris.Titular = "Cris"
 	//contaDaCris.Saldo = 500
 	//fmt.Println(*contaDaCris)
+
+	//testando interface
+	contaDaLuisa := contas.ContaCorrente{}
+	contaDaLuisa.Depositar(500)
+	PagarBoleto(&contaDaLuisa, 400) // METODO DA INTERFACE
+
+	fmt.Println(contaDaLuisa.ObterSaldo())
+
 }
+
+// -=-=-=-=-=-=-=-INTERFACE-=-=-=-=-=-=-=-=-
+type Conta interface {
+	Sacar(valor float64) string // contrato (tem que seguir o mesmo parametro de
+	// retorno assim como foi definido na classe contaCorrente o metodo Sacar)
+}
+
+func PagarBoleto(conta Conta, valorDoBoleto float64) {
+	conta.Sacar(valorDoBoleto)
+}
+
+// -=-=-=-=-=-=-=-INTERFACE-=-=-=-=-=-=-=-=-
 
 // declarando funcoes em GO
 func SemParametro() string {

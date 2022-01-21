@@ -5,10 +5,9 @@ import "Orientacao_Objetos/banco/clientes"
 //atributo que começa com minusculo = private
 //atributo que começa com maisculo = public
 type ContaCorrente struct {
-	Titular       clientes.Titular // COMPOSIÇÃO
-	NumeroAgencia int
-	NumeroConta   int
-	saldo         float64
+	Titular                    clientes.Titular // COMPOSIÇÃO
+	NumeroAgencia, NumeroConta int
+	saldo                      float64
 }
 
 // o c* ContaCorrente é como se fosse o this ou seja quem chamou que será debitado o saldo
@@ -43,6 +42,6 @@ func (c *ContaCorrente) Transferir(valorTransferencia float64, contaDestino *Con
 	}
 }
 
-func (c *ContaCorrente) Obtersaldo() float64 { // como se fosse o get
+func (c *ContaCorrente) ObterSaldo() float64 { // como se fosse o get
 	return c.saldo
 }
